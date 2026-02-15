@@ -79,7 +79,7 @@ export default function AboutPage() {
         <h2>Contact Us</h2>
         <p>
           Have questions or suggestions? We would love to hear from you. Visit
-          our <a href="/contact" className="text-indigo-600 hover:underline">Contact page</a> to get in touch.
+          our <a href="/contact" className="text-maroon-600 hover:underline">Contact page</a> to get in touch.
         </p>
       </div>
     </div>

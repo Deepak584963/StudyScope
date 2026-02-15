@@ -11,7 +11,7 @@ interface BreadcrumbsProps {
 
 export default function Breadcrumbs({ items }: BreadcrumbsProps) {
   return (
-    <nav aria-label="Breadcrumb" className="py-3">
+    <nav aria-label="Breadcrumb" className="py-2.5 sm:py-3">
       <ol
         className="flex flex-wrap items-center gap-1 text-sm text-gray-500"
         itemScope
@@ -26,7 +26,7 @@ export default function Breadcrumbs({ items }: BreadcrumbsProps) {
           <Link
             href="/"
             itemProp="item"
-            className="hover:text-indigo-600 transition-colors"
+            className="hover:text-maroon-600 transition-colors duration-200"
           >
             <span itemProp="name">Home</span>
           </Link>
@@ -52,7 +52,7 @@ export default function Breadcrumbs({ items }: BreadcrumbsProps) {
               <Link
                 href={item.href}
                 itemProp="item"
-                className="hover:text-indigo-600 transition-colors"
+                className="hover:text-maroon-600 transition-colors duration-200"
               >
                 <span itemProp="name">{item.label}</span>
               </Link>

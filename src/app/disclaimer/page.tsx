@@ -82,7 +82,7 @@ export default function DisclaimerPage() {
         <h2>Contact</h2>
         <p>
           If you find any inaccurate information on our website, please let us
-          know at <strong>contact@artscareerguide.com</strong> so we can
+          know at <strong>dk059511@gmail.com</strong> so we can
           correct it promptly. We value accuracy and appreciate feedback from
           our readers.
         </p>

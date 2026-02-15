@@ -1,14 +1,22 @@
 import type { Metadata } from "next";
-import { Geist } from "next/font/google";
+import { Inter, Merriweather } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { SITE_NAME, SITE_DESCRIPTION, SITE_URL } from "@/lib/data";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
+  display: "swap",
+});
+
+const merriweather = Merriweather({
+  variable: "--font-merriweather",
+  weight: ["400", "700", "900"],
+  subsets: ["latin"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -66,9 +74,15 @@ export default function RootLayout({
           `}
         </Script>
       </head>
-      <body className={`${geistSans.variable} antialiased flex flex-col min-h-screen`}>
+      <body className={`${inter.variable} ${merriweather.variable} antialiased flex flex-col min-h-screen`}>
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[100] focus:px-4 focus:py-2 focus:bg-maroon-700 focus:text-white focus:rounded-md"
+        >
+          Skip to main content
+        </a>
         <Header />
-        <main className="flex-1">{children}</main>
+        <main id="main-content" className="flex-1">{children}</main>
         <Footer />
       </body>
     </html>

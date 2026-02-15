@@ -1981,7 +1981,7 @@ export function getAllSlugs(): { category: string; slug: string }[] {
   return articles.map((a) => ({ category: a.category, slug: a.slug }));
 }
 
-export const SITE_NAME = "ArtsCareerGuide";
+export const SITE_NAME = "StudyScope";
 export const SITE_URL = "https://study-scope.vercel.app";
 export const SITE_DESCRIPTION =
   "India's leading career guidance platform for Arts students. Explore career options, government jobs, competitive exams, and study resources after 12th Arts, BA, and MA.";

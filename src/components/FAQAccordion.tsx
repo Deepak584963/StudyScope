@@ -11,7 +11,7 @@ export default function FAQAccordion({ faqs }: FAQAccordionProps) {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
-    <section className="my-8">
+    <section className="my-7 sm:my-8">
       <h2 className="text-2xl font-bold text-gray-900 mb-4">
         Frequently Asked Questions
       </h2>
@@ -26,13 +26,13 @@ export default function FAQAccordion({ faqs }: FAQAccordionProps) {
             itemScope
             itemProp="mainEntity"
             itemType="https://schema.org/Question"
-            className="border border-gray-200 rounded-lg overflow-hidden"
+            className="border border-gray-200 rounded-lg overflow-hidden transition-colors hover:border-gold-300"
           >
             <button
               onClick={() =>
                 setOpenIndex(openIndex === index ? null : index)
               }
-              className="w-full flex items-center justify-between px-5 py-4 text-left bg-gray-50 hover:bg-gray-100 transition-colors"
+              className="w-full flex items-center justify-between px-4 sm:px-5 py-3.5 sm:py-4 text-left bg-paper-warm hover:bg-paper-dark transition-colors"
               aria-expanded={openIndex === index}
             >
               <span
@@ -62,7 +62,7 @@ export default function FAQAccordion({ faqs }: FAQAccordionProps) {
                 itemScope
                 itemProp="acceptedAnswer"
                 itemType="https://schema.org/Answer"
-                className="px-5 py-4 bg-white"
+                className="px-4 sm:px-5 py-3.5 sm:py-4 bg-white"
               >
                 <p itemProp="text" className="text-gray-600 leading-relaxed">
                   {faq.answer}

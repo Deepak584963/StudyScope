@@ -54,7 +54,7 @@ export default function PrivacyPolicyPage() {
           We use Google Analytics to understand how visitors interact with our
           website. Google Analytics uses cookies to collect anonymous traffic
           data. You can learn more about Google&apos;s privacy practices at{" "}
-          <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" className="text-indigo-600 hover:underline">
+          <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" className="text-maroon-600 hover:underline">
             Google Privacy Policy
           </a>.
         </p>
@@ -64,7 +64,7 @@ export default function PrivacyPolicyPage() {
           Google AdSense uses cookies to serve ads based on your prior visits
           to our website and other websites. You can opt out of personalised
           advertising by visiting{" "}
-          <a href="https://www.google.com/settings/ads" target="_blank" rel="noopener noreferrer" className="text-indigo-600 hover:underline">
+          <a href="https://www.google.com/settings/ads" target="_blank" rel="noopener noreferrer" className="text-maroon-600 hover:underline">
             Google Ads Settings
           </a>.
         </p>
@@ -98,7 +98,7 @@ export default function PrivacyPolicyPage() {
           You have the right to access, correct, or delete your personal
           information. You can also opt out of tracking by adjusting your
           browser settings or using privacy tools. For any privacy-related
-          requests, please contact us at contact@artscareerguide.com.
+          requests, please contact us at dk059511@gmail.com.
         </p>
 
         <h2>Changes to This Policy</h2>
