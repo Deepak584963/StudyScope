@@ -60,6 +60,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5781883816349006"
+          crossOrigin="anonymous"
+        ></script>
+
         {/* Google Analytics – replace GA_MEASUREMENT_ID with your actual ID */}
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"
