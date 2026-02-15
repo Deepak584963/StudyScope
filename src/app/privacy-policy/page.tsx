@@ -111,7 +111,7 @@ export default function PrivacyPolicyPage() {
         <h2>Contact Us</h2>
         <p>
           If you have questions about this Privacy Policy, please contact us
-          at <strong>contact@artscareerguide.com</strong>.
+          at <strong>dk059511@gmail.com</strong>.
         </p>
       </div>
     </div>
