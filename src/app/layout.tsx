@@ -27,6 +27,9 @@ export const metadata: Metadata = {
   description: SITE_DESCRIPTION,
   applicationName: SITE_NAME,
   metadataBase: new URL(SITE_URL),
+  alternates: {
+    canonical: SITE_URL,
+  },
   icons: {
     icon: "/icon",
     apple: "/apple-icon",
@@ -54,6 +57,9 @@ export const metadata: Metadata = {
       "max-image-preview": "large",
       "max-snippet": -1,
     },
+  },
+  verification: {
+    google: "f2df34d8de1e60a6",
   },
 };
 

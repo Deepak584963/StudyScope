@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Breadcrumbs from "./Breadcrumbs";
 import FAQAccordion from "./FAQAccordion";
+import TableOfContents from "./TableOfContents";
 import type { Article, Category } from "@/lib/data";
 import { getRelatedArticles, SITE_URL } from "@/lib/data";
 
@@ -45,6 +46,21 @@ export default function ArticleLayout({
   const readingTimeMinutes = Math.max(3, Math.ceil(plainTextContent.split(" ").length / 220));
   const officialSources = OFFICIAL_SOURCES_BY_CATEGORY[category.slug] || [];
 
+  // Inject id attributes into h2 tags for TOC anchor links
+  const contentWithIds = article.content.replace(
+    /<h2([^>]*)>(.*?)<\/h2>/gi,
+    (_match, attrs, inner) => {
+      const text = inner.replace(/<[^>]*>/g, "").trim();
+      const id = text
+        .toLowerCase()
+        .replace(/[^a-z0-9\s-]/g, "")
+        .replace(/\s+/g, "-")
+        .replace(/-+/g, "-")
+        .substring(0, 60);
+      return `<h2${attrs} id="${id}">${inner}</h2>`;
+    }
+  );
+
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-5 sm:py-6">
       {/* Breadcrumbs */}
@@ -67,17 +83,86 @@ export default function ArticleLayout({
             dateModified: article.lastUpdated,
             datePublished: article.lastUpdated,
             url: articleUrl,
+            mainEntityOfPage: {
+              "@type": "WebPage",
+              "@id": articleUrl,
+            },
+            wordCount: wordCount,
+            articleSection: category.name,
+            inLanguage: "en-IN",
             author: {
               "@type": "Organization",
               name: "StudyScope",
+              url: "https://study-scope.vercel.app",
             },
             publisher: {
               "@type": "Organization",
               name: "StudyScope",
+              url: "https://study-scope.vercel.app",
+              logo: {
+                "@type": "ImageObject",
+                url: "https://study-scope.vercel.app/icon",
+              },
+            },
+            image: {
+              "@type": "ImageObject",
+              url: "https://study-scope.vercel.app/opengraph-image",
             },
           }),
         }}
       />
+
+      {/* BreadcrumbList Schema */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              {
+                "@type": "ListItem",
+                position: 1,
+                name: "Home",
+                item: "https://study-scope.vercel.app",
+              },
+              {
+                "@type": "ListItem",
+                position: 2,
+                name: category.name,
+                item: `https://study-scope.vercel.app/${category.slug}`,
+              },
+              {
+                "@type": "ListItem",
+                position: 3,
+                name: article.title,
+                item: articleUrl,
+              },
+            ],
+          }),
+        }}
+      />
+
+      {/* FAQ Schema (JSON-LD) */}
+      {article.faqs.length > 0 && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "FAQPage",
+              mainEntity: article.faqs.map((faq) => ({
+                "@type": "Question",
+                name: faq.question,
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: faq.answer,
+                },
+              })),
+            }),
+          }}
+        />
+      )}
 
       {/* Article Header */}
       <header className="mb-7 sm:mb-8">
@@ -112,10 +197,13 @@ export default function ArticleLayout({
       {/* Ad Space - Top of Article (Auto Ads will fill this naturally) */}
       <div className="my-6" />
 
+      {/* Table of Contents */}
+      <TableOfContents htmlContent={article.content} />
+
       {/* Article Content */}
       <article
         className="prose lg:prose-lg max-w-none bg-white border border-border rounded-xl p-4 sm:p-6 lg:p-7"
-        dangerouslySetInnerHTML={{ __html: article.content }}
+        dangerouslySetInnerHTML={{ __html: contentWithIds }}
       />
 
       {officialSources.length > 0 && (

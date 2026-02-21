@@ -37,8 +37,65 @@ export default function HomePage() {
   const totalArticles = articles.length;
   const totalCategories = categories.length;
 
+  const websiteSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "StudyScope",
+    url: "https://study-scope.vercel.app",
+    description: SITE_DESCRIPTION,
+    potentialAction: {
+      "@type": "SearchAction",
+      target: {
+        "@type": "EntryPoint",
+        urlTemplate: "https://study-scope.vercel.app/?q={search_term_string}",
+      },
+      "query-input": "required name=search_term_string",
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "StudyScope",
+      url: "https://study-scope.vercel.app",
+      logo: {
+        "@type": "ImageObject",
+        url: "https://study-scope.vercel.app/icon",
+      },
+      sameAs: [],
+    },
+  };
+
+  const orgSchema = {
+    "@context": "https://schema.org",
+    "@type": "EducationalOrganization",
+    name: "StudyScope",
+    url: "https://study-scope.vercel.app",
+    description: SITE_DESCRIPTION,
+    logo: "https://study-scope.vercel.app/icon",
+    areaServed: {
+      "@type": "Country",
+      name: "India",
+    },
+    knowsAbout: [
+      "Arts Career Guidance",
+      "Government Jobs India",
+      "Competitive Exams",
+      "Higher Education India",
+      "UPSC Preparation",
+      "SSC Exams",
+      "Banking Exams",
+    ],
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(orgSchema) }}
+      />
+
       {/* Hero Section */}
       <section className="bg-gradient-to-br from-maroon-600 via-maroon-700 to-maroon-800 text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-20 lg:py-24">
