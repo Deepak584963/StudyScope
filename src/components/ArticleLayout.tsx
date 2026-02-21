@@ -8,6 +8,9 @@ import { getRelatedArticles, SITE_URL } from "@/lib/data";
 interface ArticleLayoutProps {
   article: Article;
   category: Category;
+  prevArticle?: Article | null;
+  nextArticle?: Article | null;
+  moreCategoryArticles?: Article[];
 }
 
 const OFFICIAL_SOURCES_BY_CATEGORY: Record<string, { label: string; url: string }[]> = {
@@ -38,6 +41,9 @@ const OFFICIAL_SOURCES_BY_CATEGORY: Record<string, { label: string; url: string 
 export default function ArticleLayout({
   article,
   category,
+  prevArticle,
+  nextArticle,
+  moreCategoryArticles = [],
 }: ArticleLayoutProps) {
   const relatedArticles = getRelatedArticles(article.relatedSlugs);
   const articleUrl = `${SITE_URL}/${category.slug}/${article.slug}`;
@@ -284,6 +290,66 @@ export default function ArticleLayout({
                   Read article
                   <svg className="ml-1 h-3.5 w-3.5 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
                 </span>
+              </Link>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {/* Next / Previous Article Navigation */}
+      {(prevArticle || nextArticle) && (
+        <nav className="mt-10 pt-8 border-t border-border/60" aria-label="Article navigation">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {prevArticle ? (
+              <Link
+                href={`/${prevArticle.category}/${prevArticle.slug}`}
+                className="group flex items-start gap-3 p-4 rounded-2xl border border-border/60 hover:border-maroon-200 hover:bg-maroon-50/30 transition-all"
+              >
+                <svg className="w-5 h-5 text-gray-400 group-hover:text-maroon-500 mt-0.5 shrink-0 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" /></svg>
+                <div>
+                  <span className="text-xs font-semibold text-gray-400 uppercase tracking-wider">Previous</span>
+                  <p className="text-sm font-bold text-gray-800 group-hover:text-maroon-700 mt-0.5 leading-snug line-clamp-2 transition-colors">{prevArticle.title}</p>
+                </div>
+              </Link>
+            ) : (
+              <div />
+            )}
+            {nextArticle ? (
+              <Link
+                href={`/${nextArticle.category}/${nextArticle.slug}`}
+                className="group flex items-start gap-3 p-4 rounded-2xl border border-border/60 hover:border-maroon-200 hover:bg-maroon-50/30 transition-all text-right sm:justify-end"
+              >
+                <div>
+                  <span className="text-xs font-semibold text-gray-400 uppercase tracking-wider">Next</span>
+                  <p className="text-sm font-bold text-gray-800 group-hover:text-maroon-700 mt-0.5 leading-snug line-clamp-2 transition-colors">{nextArticle.title}</p>
+                </div>
+                <svg className="w-5 h-5 text-gray-400 group-hover:text-maroon-500 mt-0.5 shrink-0 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" /></svg>
+              </Link>
+            ) : (
+              <div />
+            )}
+          </div>
+        </nav>
+      )}
+
+      {/* More in This Category — extra internal links for SEO */}
+      {moreCategoryArticles.length > 0 && (
+        <section className="mt-10 pt-8 border-t border-border/60">
+          <div className="flex items-center justify-between mb-5">
+            <h2 className="text-lg font-bold text-gray-900">More in {category.name}</h2>
+            <Link href={`/${category.slug}`} className="text-sm font-semibold text-maroon-600 hover:text-maroon-700 transition-colors">
+              View all →
+            </Link>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            {moreCategoryArticles.map((art) => (
+              <Link
+                key={art.slug}
+                href={`/${art.category}/${art.slug}`}
+                className="group flex items-center gap-3 p-3.5 rounded-xl border border-border/50 hover:border-gold-300 hover:bg-paper-warm transition-all"
+              >
+                <svg className="w-4 h-4 text-maroon-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" /></svg>
+                <span className="text-sm font-medium text-gray-700 group-hover:text-maroon-700 transition-colors line-clamp-1">{art.title}</span>
               </Link>
             ))}
           </div>

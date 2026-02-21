@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import {
   categories,
+  articles,
   getArticlesByCategory,
   getCategoryBySlug,
   SITE_NAME,
@@ -75,6 +76,60 @@ export default async function CategoryPage({ params }: PageProps) {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 sm:py-6">
       <Breadcrumbs items={[{ label: category.name }]} />
+
+      {/* CollectionPage Schema */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "CollectionPage",
+            name: category.name,
+            description: category.metaDescription,
+            url: `${SITE_URL}/${categorySlug}`,
+            mainEntity: {
+              "@type": "ItemList",
+              numberOfItems: categoryArticles.length,
+              itemListElement: categoryArticles.map((article, index) => ({
+                "@type": "ListItem",
+                position: index + 1,
+                name: article.title,
+                url: `${SITE_URL}/${article.category}/${article.slug}`,
+              })),
+            },
+            isPartOf: {
+              "@type": "WebSite",
+              name: SITE_NAME,
+              url: SITE_URL,
+            },
+          }),
+        }}
+      />
+
+      {/* BreadcrumbList Schema */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              {
+                "@type": "ListItem",
+                position: 1,
+                name: "Home",
+                item: SITE_URL,
+              },
+              {
+                "@type": "ListItem",
+                position: 2,
+                name: category.name,
+                item: `${SITE_URL}/${categorySlug}`,
+              },
+            ],
+          }),
+        }}
+      />
 
       <header className="mb-10 sm:mb-12 rounded-2xl border border-border/60 bg-gradient-to-br from-paper-warm to-paper overflow-hidden shadow-sm">
         <div className="p-6 sm:p-8">

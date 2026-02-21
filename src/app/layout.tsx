@@ -34,6 +34,8 @@ export const metadata: Metadata = {
     icon: "/icon",
     apple: "/apple-icon",
   },
+  authors: [{ name: "StudyScope Team", url: `${SITE_URL}/about` }],
+  category: "Education",
   openGraph: {
     type: "website",
     locale: "en_IN",
@@ -41,11 +43,25 @@ export const metadata: Metadata = {
     siteName: SITE_NAME,
     title: `${SITE_NAME} – Career Guidance for Arts Students in India`,
     description: SITE_DESCRIPTION,
+    images: [
+      {
+        url: `${SITE_URL}/opengraph-image`,
+        width: 1200,
+        height: 630,
+        alt: `${SITE_NAME} – Career Guidance for Arts Students`,
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: `${SITE_NAME} – Career Guidance for Arts Students in India`,
     description: SITE_DESCRIPTION,
+    images: [`${SITE_URL}/opengraph-image`],
+  },
+  other: {
+    "geo.region": "IN",
+    "geo.placename": "India",
+    "content-language": "en-IN",
   },
   robots: {
     index: true,

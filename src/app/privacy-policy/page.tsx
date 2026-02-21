@@ -1,13 +1,50 @@
 import type { Metadata } from "next";
-import { SITE_NAME, SITE_URL } from "@/lib/data";
+import { SITE_NAME, SITE_URL, SITE_DESCRIPTION } from "@/lib/data";
 
 export const metadata: Metadata = {
   title: `Privacy Policy – ${SITE_NAME}`,
   description: `Privacy Policy for ${SITE_NAME}. Learn how we collect, use, and protect your personal information when you visit our website.`,
+  alternates: {
+    canonical: `${SITE_URL}/privacy-policy`,
+  },
+  openGraph: {
+    title: `Privacy Policy – ${SITE_NAME}`,
+    description: `Privacy Policy for ${SITE_NAME}. Learn how we collect, use, and protect your personal information.`,
+    url: `${SITE_URL}/privacy-policy`,
+    siteName: SITE_NAME,
+    type: "website",
+    locale: "en_IN",
+  },
+};
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  name: `Privacy Policy – ${SITE_NAME}`,
+  description: `Privacy Policy for ${SITE_NAME}`,
+  url: `${SITE_URL}/privacy-policy`,
+  inLanguage: "en-IN",
+  isPartOf: {
+    "@type": "WebSite",
+    name: SITE_NAME,
+    url: SITE_URL,
+  },
+  breadcrumb: {
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: SITE_URL },
+      { "@type": "ListItem", position: 2, name: "Privacy Policy", item: `${SITE_URL}/privacy-policy` },
+    ],
+  },
 };
 
 export default function PrivacyPolicyPage() {
   return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
     <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-6">
         Privacy Policy
@@ -115,5 +152,6 @@ export default function PrivacyPolicyPage() {
         </p>
       </div>
     </div>
+    </>
   );
 }

@@ -1,14 +1,56 @@
 import type { Metadata } from "next";
-import { SITE_NAME } from "@/lib/data";
+import { SITE_NAME, SITE_URL, SITE_DESCRIPTION } from "@/lib/data";
 
 export const metadata: Metadata = {
   title: `About Us – ${SITE_NAME}`,
   description: `Learn about ${SITE_NAME}, India's trusted career guidance platform for Arts students providing information on careers, government jobs, and competitive exams.`,
+  alternates: {
+    canonical: `${SITE_URL}/about`,
+  },
+  openGraph: {
+    type: "website",
+    title: `About Us – ${SITE_NAME}`,
+    description: `Learn about ${SITE_NAME}, India's trusted career guidance platform for Arts students.`,
+    url: `${SITE_URL}/about`,
+    siteName: SITE_NAME,
+  },
 };
 
 export default function AboutPage() {
+  const aboutSchema = {
+    "@context": "https://schema.org",
+    "@type": "AboutPage",
+    name: `About ${SITE_NAME}`,
+    url: `${SITE_URL}/about`,
+    description: SITE_DESCRIPTION,
+    mainEntity: {
+      "@type": "EducationalOrganization",
+      name: SITE_NAME,
+      url: SITE_URL,
+      description: SITE_DESCRIPTION,
+      logo: `${SITE_URL}/icon`,
+      areaServed: {
+        "@type": "Country",
+        name: "India",
+      },
+      knowsAbout: [
+        "Arts Career Guidance",
+        "Government Jobs India",
+        "Competitive Exams",
+        "Higher Education India",
+        "UPSC Preparation",
+        "SSC Exams",
+        "Banking Exams",
+      ],
+    },
+  };
+
   return (
     <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(aboutSchema) }}
+      />
       <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-6">
         About {SITE_NAME}
       </h1>

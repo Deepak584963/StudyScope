@@ -43,6 +43,7 @@ export default function HomePage() {
     name: "StudyScope",
     url: "https://study-scope.vercel.app",
     description: SITE_DESCRIPTION,
+    inLanguage: "en-IN",
     potentialAction: {
       "@type": "SearchAction",
       target: {
@@ -85,6 +86,35 @@ export default function HomePage() {
     ],
   };
 
+  // ItemList schema — helps Google understand the page structure and index listed articles
+  const itemListSchema = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "Latest Career Guides for Arts Students",
+    description: "Most recent guides and articles for Arts students in India",
+    numberOfItems: latestArticles.length,
+    itemListElement: latestArticles.map((article, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: article.title,
+      url: `https://study-scope.vercel.app/${article.category}/${article.slug}`,
+    })),
+  };
+
+  // BreadcrumbList for homepage
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: "https://study-scope.vercel.app",
+      },
+    ],
+  };
+
   return (
     <>
       <script
@@ -94,6 +124,14 @@ export default function HomePage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(orgSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
 
       {/* Hero Section */}

@@ -1,14 +1,47 @@
 import type { Metadata } from "next";
-import { SITE_NAME } from "@/lib/data";
+import { SITE_NAME, SITE_URL } from "@/lib/data";
 
 export const metadata: Metadata = {
   title: `Contact Us – ${SITE_NAME}`,
   description: `Get in touch with ${SITE_NAME}. Send us your questions, suggestions, or feedback about career guidance for Arts students.`,
+  alternates: {
+    canonical: `${SITE_URL}/contact`,
+  },
+  openGraph: {
+    type: "website",
+    title: `Contact Us – ${SITE_NAME}`,
+    description: `Get in touch with ${SITE_NAME}. Send us your questions, suggestions, or feedback.`,
+    url: `${SITE_URL}/contact`,
+    siteName: SITE_NAME,
+  },
 };
 
 export default function ContactPage() {
+  const contactSchema = {
+    "@context": "https://schema.org",
+    "@type": "ContactPage",
+    name: `Contact ${SITE_NAME}`,
+    url: `${SITE_URL}/contact`,
+    description: `Get in touch with ${SITE_NAME} for career guidance questions.`,
+    mainEntity: {
+      "@type": "Organization",
+      name: SITE_NAME,
+      url: SITE_URL,
+      contactPoint: {
+        "@type": "ContactPoint",
+        email: "dk059511@gmail.com",
+        contactType: "customer service",
+        availableLanguage: ["English", "Hindi"],
+      },
+    },
+  };
+
   return (
     <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(contactSchema) }}
+      />
       <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-6">
         Contact Us
       </h1>
